@@ -92,6 +92,7 @@ assets/             # Storage directory for UI screenshots
 ├── screenshot2.png
 
 └── screenshot3.png
+
 🤝 Contributing
 Contributions, issues, and feature proposals are welcome! Feel free to open a pull request or submit an issue.
 
