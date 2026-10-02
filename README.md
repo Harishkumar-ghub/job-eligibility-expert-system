@@ -79,11 +79,7 @@ streamlit run app.py
 The web app will automatically open in your default browser at http://localhost:8501.
 
 📁 Project Structure
-app.py              # Core application logic (Streamlit UI + Rule-based Engine)
 
-README.md           # Comprehensive project documentation
-
-.gitignore          
 
 assets/             # Storage directory for UI screenshots
 
@@ -92,6 +88,16 @@ assets/             # Storage directory for UI screenshots
 ├── screenshot2.png
 
 └── screenshot3.png
+
+
+.gitignore
+
+
+app.py              # Core application logic (Streamlit UI + Rule-based Engine)
+
+README.md           # Comprehensive project documentation
+          
+
 
 🤝 Contributing
 Contributions, issues, and feature proposals are welcome! Feel free to open a pull request or submit an issue.
