@@ -49,15 +49,18 @@ Experience >= min_exp
 Result Aggregation: The engine classifies all system roles into Eligible or Ineligible lists with specific failure justifications.
 
 🚀 Getting Started & Local Installation
+
 Prerequisites
+
 Python 3.8+ installed on your machine.
 
 1. Clone the Repository
 git clone https://github.com/Harishkumar-ghub/job-eligibility-expert-system/tree/main
 
-cd job-eligibility-expert-system
+    cd job-eligibility-expert-system
 
 2. Create and Activate Virtual Environment (Optional but Recommended)
+
 Windows:
 
 python -m venv venv
@@ -71,9 +74,11 @@ python3 -m venv venv
 source venv/bin/activate
 
 3. Install Dependencies
+
 pip install -r requirements.txt
 
-4. Run the Streamlit Application
+4. Run the Streamlit 
+Application
 streamlit run app.py
 
 The web app will automatically open in your default browser at http://localhost:8501.
