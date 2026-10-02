@@ -53,7 +53,7 @@ Prerequisites
 Python 3.8+ installed on your machine.
 
 1. Clone the Repository
-git clone https://github.com/your-username/job-eligibility-expert-system.git
+git clone https://github.com/Harishkumar-ghub/job-eligibility-expert-system/tree/main
 
 cd job-eligibility-expert-system
 
