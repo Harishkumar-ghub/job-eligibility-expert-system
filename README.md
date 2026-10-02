@@ -2,17 +2,20 @@
 A rule-based expert system built with Python and Streamlit that evaluates job seeker eligibility using a hierarchical integer-scale qualification engine.
 
 📸 Application Preview
-Place your main application screenshot above showing the input panel and evaluation results.
+
+
 ![Job Eligibility Expert System Dashboard](assets/screenshot1.png)
 
 
 
 📌 Project Overview
+
 Traditional job-matching logic often fails when using basic string matching (e.g., an applicant holding an M.Tech being marked ineligible for a role that lists 12th or B.Tech as a prerequisite).
 
 This Job Eligibility Expert System solves this problem by implementing an Integer Scale Hierarchy (QUAL_LEVELS) to rank education levels. Candidates with higher degrees automatically satisfy baseline educational requirements while enforcing stream-specific prerequisites (such as technical or teaching degrees) where necessary.
 
 ✨ Key Features
+
 Hierarchical Qualification Engine: Ranks degrees on an integer scale from level 1 (10th) to level 4 (Master's), allowing higher qualifications to satisfy lower-level baseline requirements.
 
 Stream-Specific Filtering: Evaluates stream restrictions (e.g., B.Tech, BCA) for specialized technical roles while accepting general degrees for open roles like Bank PO or Government Clerk.
@@ -24,10 +27,13 @@ Detailed Failure Diagnostics: Displays explicit, granular feedback on why a cand
 Interactive Streamlit UI: Features intuitive input controls, multi-column layouts, expandable rule references, and responsive status cards.
 
 📸 Interactive Results & Rule Breakdown
-![Results Breakdown](assets/screenshot2.png)
 
-![Knowledge Base](assets/screenshot3.png)
+![Results Breakdown](assets/screenshot3.png)
+
+![Knowledge Base](assets/screenshot2.png)
+
 ⚙️ How It Works (Inference Logic)
+
 User Profile Input: The candidate inputs their highest qualification, marks percentage, age, and years of experience via the Streamlit dashboard.
 
 Qualification Evaluation:
