@@ -19,6 +19,9 @@ QUAL_LEVELS = {
 }
 QUALS = list(QUAL_LEVELS.keys())
 
+# Readable names for the levels (used in messages)
+LEVEL_NAMES = {1: "10th", 2: "12th", 3: "a Bachelor's degree", 4: "a Master's degree"}
+
 # Skills relevant to each qualification (shown after the user picks one)
 GENERAL_SKILLS = ["Communication", "Typing", "Maths"]
 TECH_SKILLS = ["Python", "SQL", "Excel", "Networking", "Design"]
@@ -125,7 +128,7 @@ def check_job(rules, qual, marks, age, exp, user_skills):
         if rules["allowed_quals"]:
             reasons.append(f"Qualification '{qual}' does not match required stream(s): {', '.join(rules['allowed_quals'])}")
         else:
-            reasons.append(f"Qualification level too low (requires level {rules['min_qual_level']}+)")
+            reasons.append(f"Qualification too low (requires {LEVEL_NAMES[rules['min_qual_level']]} or higher)")
 
     # Rule 2: Marks
     if marks < rules["min_marks"]:
@@ -166,6 +169,13 @@ def infer(qual, marks, age, exp, user_skills):
     return eligible, not_eligible
 
 
+def is_relevant(rules, qual, user_skills):
+    """A job is relevant if the qualification fits it AND the user has at least one of its skills."""
+    if not check_qualification(qual, rules):
+        return False
+    return any(s in user_skills for s in rules["skills"])
+
+
 # ---------- USER INTERFACE ----------
 
 st.title("💼 Job Eligibility Expert System")
@@ -186,8 +196,11 @@ if qual is None:
     st.info("Select your highest qualification to unlock the skills section.")
 else:
     user_skills = st.pills(
-        f"Skills relevant to {qual}", QUAL_SKILLS[qual], selection_mode="multi"
+        f"Skills relevant to {qual}", QUAL_SKILLS[qual],
+        selection_mode="multi", key=f"skills_{qual}"
     ) or []
+
+show_all = st.checkbox("Also show unrelated jobs")
 
 st.divider()
 
@@ -200,22 +213,30 @@ if st.button("Evaluate Eligibility", type="primary", use_container_width=True, d
         for job in eligible:
             st.success(f"**{job}**: meets all {TOTAL_CHECKS} criteria.")
     else:
-        st.warning("No job matches all criteria. See the closest matches below.")
+        st.warning("No job matches all criteria.")
 
-    if not_eligible:
-        st.subheader("❌ Ineligible Positions")
-        for job, reasons, passed in not_eligible:
+    # Keep only relevant near-misses unless the user asks for everything
+    shown = [x for x in not_eligible
+             if show_all or is_relevant(JOBS[x[0]], qual, user_skills)]
+
+    st.subheader("❌ Close Matches" if not show_all else "❌ Ineligible Positions")
+    if shown:
+        for job, reasons, passed in shown:
             with st.expander(f"{job}: met {passed} of {TOTAL_CHECKS} criteria"):
                 st.progress(passed / TOTAL_CHECKS)
                 for r in reasons:
                     st.write(f"- {r}")
+    elif user_skills:
+        st.info("No close matches for your qualification and skills.")
+    else:
+        st.info("Pick your skills to see related close matches.")
 
 with st.expander("🔍 View Knowledge Base Criteria"):
     for job, r in JOBS.items():
         allowed = ", ".join(r["allowed_quals"]) if r["allowed_quals"] else "Any stream"
         st.markdown(
             f"**{job}**  \n"
-            f"• Level: {r['min_qual_level']}+ | Allowed: {allowed}  \n"
+            f"• Education: {LEVEL_NAMES[r['min_qual_level']]} or higher | Allowed: {allowed}  \n"
             f"• Marks: ≥ {r['min_marks']}% | Age: {r['min_age']}–{r['max_age']} | Min Exp: {r['min_exp']} yr  \n"
             f"• Skills: {', '.join(r['skills'])}"
         )
