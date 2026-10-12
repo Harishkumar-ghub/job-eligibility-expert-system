@@ -115,3 +115,4 @@ Contributions, issues, and feature proposals are welcome! Feel free to open a pu
 
 📝 License
 This project is open-source and available under the MIT License.
+**Live app:** https://job-eligibility-expert-system.streamlit.app
